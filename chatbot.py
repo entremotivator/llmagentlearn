@@ -28,12 +28,15 @@ st.set_page_config(
     menu_items=None,
 )
 
-# Load the OpenAI key from the environment variable
-openai_key = os.getenv("OPENAI_API_KEY")
+# Load OpenAI API key from Streamlit Secrets
+openai_key = st.secrets["openai"]["api_key"]
+
 if not openai_key:
     st.error("No OpenAI key found. Please set the OPENAI_API_KEY environment variable.")
 
+# Set OpenAI API key
 openai.api_key = openai_key
+
 
 llm = LlamaOpenAI(model="gpt-4", temperature=0.1, system_prompt=system_prompt)
 
